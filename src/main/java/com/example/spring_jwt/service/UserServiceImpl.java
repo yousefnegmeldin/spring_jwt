@@ -2,53 +2,60 @@ package com.example.spring_jwt.service;
 
 
 import com.example.spring_jwt.model.User;
-import com.example.spring_jwt.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
 
-    @Autowired
-    public void setUserServiceRepository(UserRepository userServiceRepository) {
-        this.userRepository = userServiceRepository;
-    }
+    private final List<User> users = new ArrayList<>();
 
     @Override
     public User saveUser(User user) {
-        return userRepository.save(user);
+        user.setId((long) users.size());
+        users.add(user);
+        return user;
     }
-
 
     @Override
     public void deleteByUserId(Long userId) {
-        userRepository.deleteById(userId);
+        users.removeIf(user -> user.getId().equals(userId));
     }
 
     @Override
     public User updateUser(User user) {
+        int index = -1;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId().equals(user.getId())) {
+                index = i;
+                break;
+            }
+        }
+        if (index >= 0) {
+            users.set(index, user);
+            return user;
+        }
         return null;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return (List<User>)userRepository.findAll();
+        return new ArrayList<>(users);
     }
-
 
     @Override
     public String getSecret(User user) {
-        return user.getSecret();
+        // Implement this method
+        return "";
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        Optional<User> opt = Optional.of(userRepository.getReferenceById(id));
-        return opt;
+    public Optional<User> findById(Long userId) {
+        return users.stream().filter(user -> user.getId().equals(userId)).findFirst();
     }
 }

@@ -4,13 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.stereotype.Component;
 
-@Entity
+@Component
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    private long id;
+    private String name;
+    private String username;
+    private String password;
+    private String secret;
+    private String email;
     public Long getId() {
         return id;
     }
@@ -51,8 +55,11 @@ public class User {
         this.secret = secret;
     }
 
-    private String name;
-    private String username;
-    private String password;
-    private String secret;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
