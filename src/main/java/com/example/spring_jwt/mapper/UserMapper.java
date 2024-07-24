@@ -18,6 +18,6 @@ public class UserMapper {
         if (userDTO == null) {
             return null;
         }
-        return new User(null, userDTO.name(), userDTO.username(), userDTO.email());
+        return new User(userDTO.name(), userDTO.username(), userDTO.email());
     }
 }
