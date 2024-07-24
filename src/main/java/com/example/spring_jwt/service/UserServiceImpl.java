@@ -1,6 +1,7 @@
 package com.example.spring_jwt.service;
 
 
+import com.example.spring_jwt.dto.UserDTO;
 import com.example.spring_jwt.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,5 +58,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(Long userId) {
         return users.stream().filter(user -> user.getId().equals(userId)).findFirst();
+    }
+
+    public UserDTO convertToDTO(User user){
+        return new UserDTO(user.getName(),user.getUsername(),user.getEmail());
     }
 }
