@@ -28,7 +28,6 @@ public class UserController {
 
     @PostMapping
     public UserDTO createUser(@RequestBody User user){
-
         User savedUser = userService.saveUser(user);
         return userService.convertToDTO(savedUser);
     }

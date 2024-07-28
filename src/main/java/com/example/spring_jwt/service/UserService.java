@@ -1,5 +1,6 @@
 package com.example.spring_jwt.service;
 
+import com.example.spring_jwt.dto.UserDTO;
 import com.example.spring_jwt.model.User;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
@@ -14,4 +15,5 @@ public interface UserService {
 //    Optional<User> findByUsername(String username);
     String getSecret(User user);
     Optional<User> findById(Long id);
+    UserDTO convertToDTO(User user);
 }
