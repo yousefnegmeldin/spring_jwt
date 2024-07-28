@@ -15,5 +15,4 @@ public interface UserService {
 //    Optional<User> findByUsername(String username);
     String getSecret(User user);
     Optional<User> findById(Long id);
-    UserDTO convertToDTO(User user);
 }
