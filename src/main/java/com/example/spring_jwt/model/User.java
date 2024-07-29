@@ -6,15 +6,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
-@Component
+@Entity
 public class User {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String username;
     private String password;
     private String secret;
     private String email;
+
+    public User(){
+
+    }
 
     public User(String name,String username, String email){
         this.name = name;

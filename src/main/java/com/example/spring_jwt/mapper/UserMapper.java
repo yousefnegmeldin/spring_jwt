@@ -2,9 +2,10 @@ package com.example.spring_jwt.mapper;
 
 import com.example.spring_jwt.dto.UserDTO;
 import com.example.spring_jwt.model.User;
+import org.springframework.stereotype.Component;
+
 
 public class UserMapper {
-
     // Converts User entity to UserDTO
     public static UserDTO toUserDTO(User user) {
         if (user == null) {

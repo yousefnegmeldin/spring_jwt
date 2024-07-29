@@ -2,6 +2,7 @@ package com.example.spring_jwt.controller;
 
 
 import com.example.spring_jwt.dto.UserDTO;
+import com.example.spring_jwt.mapper.UserMapper;
 import com.example.spring_jwt.model.User;
 import com.example.spring_jwt.service.UserService;
 import com.example.spring_jwt.service.UserServiceImpl;
@@ -23,13 +24,13 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable Long id) {
         User userFound = userService.findById(id).get();
-        return userService.convertToDTO(userFound);
+        return UserMapper.toUserDTO(userFound);
     }
 
     @PostMapping
     public UserDTO createUser(@RequestBody User user){
-        User savedUser = userService.saveUser(user);
-        return userService.convertToDTO(savedUser);
+        userService.saveUser(user);
+        return UserMapper.toUserDTO(user);
     }
 
 }
