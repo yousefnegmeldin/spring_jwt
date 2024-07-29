@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -18,13 +20,23 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
+    private final UserServiceImpl userService;
+
     @Autowired
-    private UserServiceImpl userService;
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/{id}")
-    public UserDTO getUserById(@PathVariable Long id) {
-        User userFound = userService.findById(id).get();
-        return UserMapper.toUserDTO(userFound);
+    public ResponseEntity<Object> getUserById(@PathVariable Long id) {
+        Optional<User> userFound = userService.findById(id);
+        if (userFound.isPresent()) {
+            return ResponseEntity.ok(UserMapper.toUserDTO(userFound.get()));
+        } else {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "User not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
     }
 
     @PostMapping
@@ -33,4 +45,16 @@ public class UserController {
         return UserMapper.toUserDTO(user);
     }
 
+    @GetMapping("/username/{username}")
+    public UserDTO getUserByUsername(@PathVariable String username){
+        User user = userService.findUserByUsername(username);
+        return UserMapper.toUserDTO(user);
+    }
+    @DeleteMapping("username/{username}")
+    public ResponseEntity<Object> deleteUser(@PathVariable String username){
+        userService.deleteByUsername(username);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "deleted user "+username+" successfully");
+        return ResponseEntity.ok().body(response);
+    }
 }

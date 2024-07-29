@@ -20,8 +20,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public void deleteByUserId(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public void deleteByUsername(String username) {
+        userRepository.deleteUserByUsername(username);
     }
 
     @Override
@@ -48,4 +58,8 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findById(Long userId) {
         return userRepository.findById(userId);
     }
+
+
+
+
 }
