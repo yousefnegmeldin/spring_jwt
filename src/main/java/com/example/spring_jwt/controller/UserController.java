@@ -44,13 +44,12 @@ public class UserController {
         userService.saveUser(user);
         return UserMapper.toUserDTO(user);
     }
-
     @GetMapping("/username/{username}")
     public UserDTO getUserByUsername(@PathVariable String username){
         User user = userService.findUserByUsername(username);
         return UserMapper.toUserDTO(user);
     }
-    @DeleteMapping("username/{username}")
+    @DeleteMapping("/username/{username}")
     public ResponseEntity<Object> deleteUser(@PathVariable String username){
         userService.deleteByUsername(username);
         Map<String, String> response = new HashMap<>();

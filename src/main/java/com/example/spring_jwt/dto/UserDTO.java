@@ -1,4 +1,4 @@
 package com.example.spring_jwt.dto;
 
-public record UserDTO(String name, String username, String email) {
+public record UserDTO(String name, String username) {
 }

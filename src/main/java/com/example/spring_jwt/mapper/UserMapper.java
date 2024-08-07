@@ -11,7 +11,7 @@ public class UserMapper {
         if (user == null) {
             return null;
         }
-        return new UserDTO(user.getName(), user.getUsername(), user.getEmail());
+        return new UserDTO(user.getName(), user.getUsername());
     }
 
     // Converts UserDTO to User entity
@@ -19,6 +19,6 @@ public class UserMapper {
         if (userDTO == null) {
             return null;
         }
-        return new User(userDTO.name(), userDTO.username(), userDTO.email());
+        return new User(userDTO.name(), userDTO.username());
     }
 }
