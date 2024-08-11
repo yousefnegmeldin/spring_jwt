@@ -1,2 +1,4 @@
-package com.example.spring_jwt.dto;public record LoginUserDTO() {
+package com.example.spring_jwt.dto;
+
+public record LoginUserDTO(String username,String password) {
 }

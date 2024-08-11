@@ -25,7 +25,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    private String secret;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRoleEnums role;
 
     public User(){};
 
@@ -94,12 +96,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getSecret() {
-        return secret;
+    public UserRoleEnums getRole() {
+        return role;
     }
 
-    public void setSecret(String secret) {
-        this.secret = secret;
+    public void setRole(UserRoleEnums role) {
+        this.role = role;
     }
-
 }
